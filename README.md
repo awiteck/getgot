@@ -1,6 +1,6 @@
 # getgot
 
-A super lightweight memory system for on-device AI agents. Implemented using the CoALA framework.
+A super lightweight memory system for on-device AI agents. Inspired by [MemGPT](https://arxiv.org/abs/2310.08560) and the [CoALA framework](https://arxiv.org/abs/2309.02427).
 
 ## Code examples for how this should be used
 
