@@ -1,19 +1,21 @@
 from typing import Any, Dict, Optional, List
 
 from getgot.memory_types.main.main_context import MainContext
-from getgot.memory_types.semantic import SemanticMemory
+from getgot.memory_types.external.semantic_memory import SemanticMemory
 from getgot.llm_api.base import DefaultLLM
-from getgot.models.message import Message
+from getgot.schemas.openai.chat_completion_request import ChatMessage
+from getgot.log import logger
 
+logger = logger.get_logger(__name__)
 
-class BasicAgentMemory:
+class GetGot:
     def __init__(self, working_capacity: int = 20):
         self.main_context = MainContext(capacity=working_capacity)
         self.semantic_memory = SemanticMemory() 
         # self.episodic_memory = EpisodicMemory()  
         self.llm = DefaultLLM()
 
-    def add_message(self, message: Message):
+    def add_message(self, message: ChatMessage):
         # Add message to working memory
         self.working_memory.add(message)
         self._process_messages()
@@ -41,10 +43,10 @@ class BasicAgentMemory:
 
     def get_relevant_semantic_memories(
         self, query: str, k: Optional[int] = None
-    ) -> List[Message]:
+    ) -> List[ChatMessage]:
         return self.semantic_memory.search(query, k)
 
-    def get_working_memory(self, n: Optional[int] = None) -> List[Message]:
+    def get_working_memory(self, n: Optional[int] = None) -> List[ChatMessage]:
         """Get the n most recent messages from working memory."""
         return self.working_memory.get(n)
 

@@ -3,28 +3,35 @@ from collections import deque
 from typing import List, Optional
 
 from getgot.memory_types.base import BaseMemory
-from getgot.models.message import Message
-from getgot.log import logger
+from getgot.schemas.openai.chat_completion_request import SystemMessage, ChatMessage
+from getgot.log import get_logger
 from getgot.memory_types.main.recent_messages import RecentMessages
 
+logger = get_logger(__name__)
+
 class MainContext(BaseMemory):
-    def __init__(self, llm,system_prompt: str, capacity: int = 20):
-        self.system_prompt = system_prompt
+    def __init__(self, llm, system_prompt: str, capacity: int = 20):
+        self.system_prompt = SystemMessage(content=system_prompt)
         self.recent_messages = RecentMessages(llm=llm, capacity=capacity)
 
-    def add(self, message: Message) -> None:
+    def add(self, message: ChatMessage) -> None:
         self.recent_messages.add(message)
 
-    def get(self, n: Optional[int] = None) -> List[Message]:
+    def get(self) -> List[ChatMessage]:
         """
-        Get the last n messages from the recent messages.
+        Get the recent messages, with the system prompt at the front.
         """
-        if n is None:
-            return list(self.recent_messages.messages)
-        return self.recent_messages.messages[-n:]
+        recent_messages = self.recent_messages.get()
+        return [self.system_prompt] + recent_messages
 
     def clear(self) -> None:
         """
         Clear the recent messages.
         """
         self.recent_messages.clear()
+
+    def __str__(self) -> str:
+        return f"MainContext(system_prompt={self.system_prompt}, recent_messages={self.recent_messages})"
+    
+    def __len__(self) -> int:
+        return len(self.recent_messages)

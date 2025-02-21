@@ -1,3 +1,7 @@
+'''
+Copied from https://github.com/letta-ai/letta/blob/main/letta/schemas/openai/chat_completion_request.py
+'''
+
 from typing import Any, Dict, List, Literal, Optional, Union
 from pydantic import BaseModel, Field
 
@@ -120,3 +124,21 @@ class ChatCompletionRequest(BaseModel):
     # deprecated scheme
     functions: Optional[List[FunctionSchema]] = None
     function_call: Optional[FunctionCallChoice] = None
+
+    def model_dump(self, **kwargs) -> dict:
+        """Override model_dump to exclude None values and handle incompatible fields"""
+        data = super().model_dump(exclude_none=True, **kwargs)
+        
+        # Remove deprecated fields if they're empty
+        if 'tools' in data and not data['tools']:
+            del data['tools']
+        if 'tool_choice' in data and not data['tool_choice']:
+            del data['tool_choice']
+            
+        if 'functions' in data and not data['functions']:
+            del data['functions']
+            
+        if 'function_call' in data and not data['function_call']:
+            del data['function_call']
+            
+        return data
