@@ -1,5 +1,4 @@
 # src/getgot/memory/working.py
-from collections import deque
 from typing import List, Optional
 
 from getgot.memory_types.base import BaseMemory
@@ -16,6 +15,7 @@ class MainContext(BaseMemory):
 
     def add(self, message: ChatMessage) -> None:
         self.recent_messages.add(message)
+        logger.debug(self.__str__())
 
     def get(self) -> List[ChatMessage]:
         """
@@ -23,6 +23,12 @@ class MainContext(BaseMemory):
         """
         recent_messages = self.recent_messages.get()
         return [self.system_prompt] + recent_messages
+    
+    def get_last_user_message(self) -> Optional[ChatMessage]:
+        """
+        Get the last user message.
+        """
+        return self.recent_messages.get_last_user_message()
 
     def clear(self) -> None:
         """

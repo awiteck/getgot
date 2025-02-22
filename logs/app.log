@@ -1,0 +1,1 @@
+2025-02-21 15:26:13 - getgot.memory_types.main.main_context - DEBUG - MainContext(system_prompt=content='You are a helpful assistant.' role='system' name=None, recent_messages=<getgot.memory_types.main.recent_messages.RecentMessages object at 0x106faa5c0>)

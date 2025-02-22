@@ -54,6 +54,13 @@ class RecentMessages:
         """Get the recent messages, with the summary at the front"""
         return [self.summary] + self.messages
     
+    def get_last_user_message(self) -> Optional[ChatMessage]:
+        """Get the last user message"""
+        for message in reversed(self.messages):
+            if message.role == "user":
+                return message
+        return None
+    
     def _update_summary(self) -> None:
         """Update the summary message"""
         oldest_message = self.messages[0]
@@ -90,7 +97,6 @@ class RecentMessages:
 
 
             try: 
-                print(f"response: {response}")
                 summary = response.choices[0].message.content.split("<summary>")[1].split("</summary>")[0]
                 return SystemMessage(content=summary, timestamp=datetime.now())
             except Exception as e:

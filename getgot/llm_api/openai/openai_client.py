@@ -22,7 +22,5 @@ class OpenAIClient(BaseLLM):
 
     def chat(self, request: ChatCompletionRequest) -> ChatCompletionResponse:
         payload = request.model_dump()
-        print(payload)
         chat_completion = self.client.chat.completions.create(**payload)
-        print(chat_completion)
         return ChatCompletionResponse(**chat_completion.model_dump())

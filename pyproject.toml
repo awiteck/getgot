@@ -1,0 +1,29 @@
+[project]
+name = "getgot"
+version = "0.1.0"
+description = "A lightweight on-device memory system for AI agents."
+authors = [
+    {name = "awiteck",email = "aidanwiteck@gmail.com"}
+]
+license = {text = "Apache-2.0"}
+license-files = ["LICENSE*"]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic (>=2.10.6,<3.0.0)",
+    "openai (>=1.63.2,<2.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+[project.urls]
+Homepage = "https://github.com/awiteck/getgot"
+Issues = "https://github.com/awiteck/getgot/issues"
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

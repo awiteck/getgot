@@ -9,5 +9,8 @@ class SemanticMemory(BaseMemory):
     def add(self, message: ChatMessage) -> None:
         pass
 
-    def get(self) -> List[ChatMessage]:
+    def get(self, query: str) -> List[ChatMessage]:
+        pass
+    
+    def clear(self) -> None:
         pass
