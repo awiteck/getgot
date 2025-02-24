@@ -1,6 +1,6 @@
 [project]
 name = "getgot"
-version = "0.1.1"
+version = "0.1.2"
 description = "A lightweight on-device memory system for AI agents."
 authors = [
     {name = "awiteck", email = "aidanwiteck@gmail.com"}
