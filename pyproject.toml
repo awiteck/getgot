@@ -1,6 +1,6 @@
 [project]
 name = "getgot"
-version = "0.1.2"
+version = "0.1.3"
 description = "A lightweight on-device memory system for AI agents."
 authors = [
     {name = "awiteck", email = "aidanwiteck@gmail.com"}
@@ -10,7 +10,7 @@ license-files = ["LICENSE*"]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "pydantic >= 2.10.6",
+    "pydantic >= 2.10.1",
     "openai >= 1.57.1",
     "python-dotenv >= 1.0.1"
 ]
